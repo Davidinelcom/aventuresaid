@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ca"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Cuento de la Tarde de Otoño 🍂 (Terrorífico y Responsive)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Nosifier&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================== */
+        /* ESTILOS CSS BASE (MÓVIL PRIMERO) */
+        /* ============================== */
+
+        body {
+            font-family: 'Metal Mania', cursive; 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centrado vertical */
+            min-height: 100vh;
+            background-color: #1a1a1a; 
+            color: #d6d6d6; 
+            overflow-x: hidden; 
+            user-select: none;
+            line-height: 1.6;
+            padding: 10px; 
+        }
+
+        /* Contenedor de cada escena */
+        .escena {
+            text-align: center;
+            width: 95vw; 
+            max-width: 100%;
+            
+            height: auto; 
+            max-height: none; 
+
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            background-color: #333; 
+            border: 2px solid #a30000; 
+            position: absolute;
+            transition: opacity 0.5s ease-out;
+            cursor: pointer;
+            
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            align-items: stretch;
+            
+            z-index: 1; 
+        }
+        
+        .escena:not(.hidden) {
+            z-index: 5;
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none !important; 
+            opacity: 0;
+        }
+
+        /* Columna de texto */
+        .col-texto {
+            flex: none; 
+            min-height: 150px; 
+            text-align: left;
+            padding: 15px;
+            background-color: #222; 
+            border-radius: 15px;
+            border: 1px dashed #6b0000; 
+            position: relative; 
+            overflow-y: auto; 
+            box-shadow: 0 0 10px rgba(163, 0, 0, 0.5); 
+            animation: textGlow 3s infinite alternate;
+        }
+
+        /* Columna de imagen */
+        .col-imagen {
+            flex: none; 
+            min-height: 200px; 
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            height: auto; 
+        }
+
+        .col-imagen img {
+            width: 100%;
+            height: auto; 
+            object-fit: contain; /* CLAVE: Muestra la imagen completa sin recortar */
+            display: block;
+            border-radius: 15px;
+            background-color: #1a1a1a; /* Rellena el espacio sobrante con negro */
+        }
+
+        /* Tipografía móvil */
+        h1 { font-family: 'Nosifier', serif; font-size: 2em; margin-bottom: 10px; color: #ffc300; text-shadow: 2px 2px 3px rgba(163, 0, 0, 0.8); }
+        h2 { font-family: 'Nosifier', serif; font-size: 1.5em; color: #ff4500; margin-top: 0; }
+        p { font-family: 'Metal Mania', cursive; font-size: 1em; color: #d6d6d6; margin-bottom: 1em; text-align: left; }
+        .hoja { width: 25px; height: 25px; opacity: 0.8; }
+        
+        /* Estilo especial para la escena 1 */
+        #escena-1 .col-texto { animation: none; background-color: #a30000; color: #ffc300; font-weight: normal; box-shadow: 4px 4px 8px rgba(0,0,0,0.5); padding: 15px; }
+
+
+        /* ============================== */
+        /* BOTÓN DE REINICIO */
+        /* ============================== */
+        .restart-button {
+            font-family: 'Nosifier', serif;
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin-top: 30px;
+            background-color: #a30000; 
+            color: #ffc300; 
+            border: 2px solid #ff4500;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 0 10px rgba(163, 0, 0, 0.7);
+        }
+
+        .restart-button:hover {
+            background-color: #ff4500; 
+            color: #1a1a1a;
+            transform: scale(1.05);
+        }
+
+
+        /* ============================== */
+        /* MEDIA QUERY: AJUSTES PARA PANTALLAS GRANDES (ANTI-ZOOM Y SIN RECORTE) */
+        /* ============================== */
+
+        @media (min-width: 768px) {
+            body {
+                align-items: center; 
+            }
+
+            .escena {
+                width: 90%;
+                max-width: 1000px; 
+                height: 700px; 
+                max-height: 95vh; /* Ajuste Anti-Zoom */
+                padding: 25px;
+                gap: 30px; 
+                flex-direction: row; 
+                align-items: stretch;
+            }
+
+            .col-texto {
+                flex: 1; 
+                padding: 20px;
+                min-height: auto; 
+            }
+
+            .col-imagen {
+                flex: 1; 
+                min-height: auto; 
+                height: 100%; 
+            }
+
+            .col-imagen img {
+                height: 100%; 
+                object-fit: contain; /* Mantiene la imagen completa */
+            }
+
+            /* Tipografía de escritorio */
+            h1 { font-size: 2.8em; margin-bottom: 15px; }
+            h2 { font-size: 2em; }
+            p { font-size: 1.15em; margin-bottom: 1em; }
+            .hoja { width: 30px; height: 30px; }
+        }
+
+
+        /* ============================== */
+        /* ANIMACIÓN Y HOJAS */
+        /* ============================== */
+        
+        @keyframes textGlow {
+            0% { box-shadow: 0 0 10px rgba(163, 0, 0, 0.5); border-color: #6b0000; }
+            100% { box-shadow: 0 0 20px rgba(163, 0, 0, 0.8), 0 0 5px rgba(255, 69, 0, 0.3); border-color: #ff4500; }
+        }
+
+        .hoja.top-left { top: 10px; left: 10px; transform: rotate(20deg); }
+        .hoja.top-right { top: 10px; right: 10px; transform: rotate(-30deg); }
+        .hoja.bottom-left { bottom: 10px; left: 10px; transform: rotate(-10deg); }
+        .hoja.bottom-right { bottom: 10px; right: 10px; transform: rotate(40deg); }
+        .hoja.mid-left { top: 40%; left: 5%; transform: rotate(15deg); }
+        .hoja.mid-right { top: 60%; right: 5%; transform: rotate(-25deg); }
+        .hoja {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236b0000"><path d="M12 21c-2.4 0-4.8-.8-6.7-2.3C3.4 16.5 2 13.5 2 10.5c0-3.3 1.3-6.4 3.6-8.7L12 9l6.4-7.7c2.3 2.3 3.6 5.4 3.6 8.7 0 3-.9 5.8-2.6 8.2-1.8 2.5-4.2 4.1-6.7 4.1zm0-18c-2 0-3.9.7-5.4 2.1C4.7 6.5 4 8.5 4 10.5c0 2.5.8 4.8 2.3 6.6 1.5 2 3.5 3.1 5.7 3.1s4.2-1.1 5.7-3.1c1.5-1.8 2.3-4.1 2.3-6.6 0-2-.7-3.9-2-5.4C15.9 3.7 14 3 12 3z"/></svg>');
+        }
+
+        #flash-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #4f0000; 
+            opacity: 0; pointer-events: none; z-index: 1000; 
+        }
+
+        @keyframes flashEffect {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            40% { opacity: 0.5; }
+            60% { opacity: 0.2; }
+            100% { opacity: 0; }
+        }
+        .flashing { animation: flashEffect 0.5s ease-out; }
+    </style>
+</head>
+<body>
+
+    <div id="flash-overlay"></div>
+
+    <section id="escena-0" class="escena">
+        <div class="col-texto">
+            <span class="hoja top-left"></span>
+            <span class="hoja top-right"></span>
+            <span class="hoja bottom-left"></span>
+            <span class="hoja bottom-right"></span>
+            <span class="hoja mid-left"></span>
+            <span class="hoja mid-right"></span>
+            <h1>La Nit de la Carbassa Somrient</h1>
+            <p>Una història de tardor, amistat i una mica de màgia fosca.</p>
+            <p><strong>Fes clic per començar l'aventura... si t'atreveixes!</strong></p>
+        </div>
+        <div class="col-imagen">
+            <img src="portada.png" alt="Portada del Cuento, Niña pintando">
+        </div>
+    </section>
+
+    <section id="escena-1" class="escena hidden">
+        <div class="col-texto" style="background-color: #a30000; color: #ffc300; font-weight: normal; padding: 30px; border: none; box-shadow: 4px 4px 8px rgba(0,0,0,0.5);">
+            <p>ERA UNA VESPRADA DE TARDOR, I LES FULLES SEQUES CREPITAVEN AMB EL VENT GELAT.</p>
+            <p>EN UNA CASA AMB OLOR A CARBASSA CREMADA, ALBA ESTAVA MOLT OCUPADA PINTANT RATPENATS A LA FINESTRA, PERÒ ELS SEUS EREN ESTRANYAMENT REALISTES.</p>
+            <p>PORTAVA LA SEUA SAMARRETA PREFERIDA DE STITCH, AMB TACA DE PINTURA, PERÒ HUI PAREIXIEN TAQUES DE ... ALTRA COSA.</p>
+            <p>AL SEU COSTAT GATEJAVA LA SEUA COSINETA DÀLIA, UNA BEBÈ QUE ARROSSEGAVA LA SEUA CARBASSETA DE TELA BUSCANT CARAMELS MISTERIOSOS.</p>
+            <p>—MIRA, DÀLIA! —VA DIR ALBA AMB UN SOMRIURE GÈLID—. ESTE RATPENAT M'HA QUEDAT TERRIBLEMENT GENIAL.</p>
+            <p>PERÒ JUST EN ACABAR L'ÚLTIMA PINZELLADA...</p>
+        </div>
+        <div class="col-imagen">
+            <img src="1.png" alt="Alba pintando murciélagos con Dàlia">
+        </div>
+    </section>
+
+    <section id="escena-2" class="escena hidden">
+        <div class="col-texto">
+            <h2>Capítol II: El Brunzit de la Maledicció</h2>
+            <p>Un brunzit peculiar va omplir l'habitació. No era el vent, ni un insecte... era un so que semblava venir de les parets mateixes.</p>
+            <p>Dàlia va alçar el cap lentament. La petita carbasseta de tela no es va il·luminar; va començar a PODRIR-SE amb un tint verd suau i fosc.</p>
+            <p>Alba es va acostar a la finestra. El ratpenat de paper que havia pintat semblava... MOURE'S, amb una fam desconeguda.</p>
+            <p>Fes clic per acostar-te a la foscor.</p>
+        </div>
+        <div class="col-imagen">
+            <img src="2.png" alt="Niña escuchando un ruido extraño">
+        </div>
+    </section>
+
+    <section id="escena-3" class="escena hidden">
+        <div class="col-texto">
+            <h2>Capítol III: La Pintura Pren Vida Pròpia</h2>
+            <p>De sobte, el ratpenat de paper va ARRENCAR de la finestra! Va eixir volant com una ombra pel sostre de l'habitació amb una alegria MALVADA. Dàlia va aplaudir amb una rialla inquietant.</p>
+            <p>Alba estava sorprès, però també ENFOSQUIDA. La pintura s'havia tornat màgica i HORRIBLE! Van obrir la finestra i van veure com s'unia a altres criatures reals en la foscor profunda.</p>
+            <p>Fes clic per seguir-los al jardí maleït.</p>
+        </div>
+        <div class="col-imagen">
+            <img src="3.png" alt="Ratpenat de paper volant">
+        </div>
+    </section>
+
+    <section id="escena-4" class="escena hidden">
+        <div class="col-texto">
+            <h2>Capítol IV: La Festa dels Damnats</h2>
+            <p>Des del jardí, Alba i Dàlia van veure com els ratpenats de paper d'Alba s'endinsaven en les fosques cases del veïnat, deixant darrere seu només SILENCI.</p>
+            <p>Era un festival de por. Una nit de malson i angoixa per a tot el poble. La lluna estava ROJA, i els ratpenats ballaven sota ella.</p>
+            <p>Fes clic per encarar el final.</p>
+        </div>
+        <div class="col-imagen">
+            <img src="4.png" alt="Festival de ratpenats de paper i reals">
+        </div>
+    </section>
+
+    <section id="escena-5" class="escena hidden">
+        <div class="col-texto">
+            <h2>Capítol V: El Pacte de la Carbassa</h2>
+            <p>Quan la nit va acabar i els ratpenats van tornar a ser paper, Dàlia va agafar la seua carbasseta de tela. Dins, hi havia regals que havien costat un preu molt alt.</p>
+            <p>Alba va entendre que la màgia fosca era real, i que cada pinzellada de pintura amagava un secret. La seua pròxima missió seria pintar una carbassa... amb la intenció correcta.</p>
+            <p>Fes clic per veure el final de la història.</p>
+        </div>
+        <div class="col-imagen">
+            <img src="5.png" alt="Dàlia amb la carbasseta i els caramels">
+        </div>
+    </section>
+
+    <section id="escena-6" class="escena hidden">
+        <div class="col-texto" style="cursor: default;">
+            <h1>¡FI DEL MALSÓN!</h1>
+            <p>Alba i Dàlia sabien que la nit de Halloween sempre portava la MÉS GRAN de les sorpreses. Estaven impacients, no per la pròxima, sinó pel moment en què la màgia tornaria a trencar-se.</p>
+            <p>La foscor et dóna les gràcies per acompanyar-los. Ara, tanca els ulls...</p>
+            <h2 style="color: #ff4500;">Fins la pròxima nit terrorífica...</h2>
+            
+            <button class="restart-button" id="btnReiniciar">TORNA A COMENÇAR</button>
+        </div>
+        <div class="col-imagen">
+            <img src="final.png" alt="Final del cuento, otoño">
+        </div>
+    </section>
+
+    <script>
+        const TOTAL_ESCENAS = 7;
+        let escenaActual = 0;
+        const escenas = document.querySelectorAll('.escena');
+        const flashOverlay = document.getElementById('flash-overlay');
+        const btnReiniciar = document.getElementById('btnReiniciar');
+
+        function avanzarCuento() {
+            if (escenaActual >= TOTAL_ESCENAS - 1) {
+                return;
+            }
+
+            // 1. Ocultar la escena actual
+            const escenaAnterior = document.getElementById(`escena-${escenaActual}`);
+            if (escenaAnterior) {
+                escenaAnterior.classList.add('hidden');
+            }
+            
+            escenaActual++;
+
+            // 2. Mostrar la próxima escena
+            const proximaEscena = document.getElementById(`escena-${escenaActual}`);
+            if (proximaEscena) {
+                flashOverlay.classList.add('flashing');
+
+                setTimeout(() => {
+                    proximaEscena.classList.remove('hidden');
+                }, 250);
+
+                flashOverlay.addEventListener('animationend', () => {
+                    flashOverlay.classList.remove('flashing');
+                }, { once: true });
+            }
+        }
+
+        function reiniciarCuento() {
+            // Ocultar la escena actual (la última)
+            const escenaFinal = document.getElementById(`escena-${escenaActual}`);
+            if (escenaFinal) {
+                escenaFinal.classList.add('hidden');
+            }
+
+            // Resetear el contador a la portada
+            escenaActual = 0;
+
+            // Mostrar la portada
+            const portada = document.getElementById('escena-0');
+            if (portada) {
+                portada.classList.remove('hidden');
+                flashOverlay.classList.add('flashing');
+                flashOverlay.addEventListener('animationend', () => {
+                    flashOverlay.classList.remove('flashing');
+                }, { once: true });
+            }
+        }
+
+        // Asignar el evento de clic a CADA escena para avanzar el cuento
+        escenas.forEach(escena => {
+            escena.addEventListener('click', avanzarCuento);
+        });
+
+        // Asignar el evento al botón de reiniciar, evitando que el clic se propague al contenedor de la escena.
+        if (btnReiniciar) {
+            btnReiniciar.addEventListener('click', (event) => {
+                event.stopPropagation(); 
+                reiniciarCuento();
+            });
+        }
+        
+        // ASEGURAR EL ESTADO INICIAL
+        escenas.forEach((escena, index) => {
+            if (index !== 0) {
+                escena.classList.add('hidden');
+            } else {
+                escena.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
