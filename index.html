@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuento Infantil</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(180deg, #cce7ff, #fff7cc);
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+	.story-text{
+	margin-bottom: 2000px;
+	
+	}
+    /* PORTADA */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cover h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff6f61;
+    }
+
+    .cover p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .cover a {
+      text-decoration: none;
+    }
+
+    .cover img {
+      width: 300px;
+      max-width: 90%;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cover img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .hint {
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    /* CUENTO */
+    .story {
+      padding: 40px 20px;
+      background: #ffffff;
+      border-radius: 30px 30px 0 0;
+    }
+
+    .story h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #4caf50;
+      margin-bottom: 30px;
+    }
+
+    .story p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .back {
+      display: block;
+      margin: 40px auto 0;
+      width: fit-content;
+      padding: 12px 25px;
+      background: #ff6f61;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .back:hover {
+      background: #ff857a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA -->
+  <section class="cover" id="portada">
+    <div class="container">
+      <h1>LES AVENTURES D'ALBA I DÀLIA</h1>
+      <p>TRIA QUINA AVENTURA VOLS VIURE</p>
+
+        <!-- Sustituye src por la imagen de portada -->
+  <div class="stories">
+<a href="Halloween/conte.html" class="story-link">
+<img src="portadah.png" alt="una nit màgica de Halloween" />
+</a>
+
+
+<a href="Nadal/conte.html" class="story-link">
+<img src="portadan.png" alt="una nit màgica de Nadal" />
+</a>
+</div>
+      <div class="hint">COMENÇA A LLEGIR</div>
+    </div>
+  </section>
+
+ 
+</body>
+</html>
