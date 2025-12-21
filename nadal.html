@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>Una nit màgica de Reis</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
+
+body {
+  font-family: 'Mountains of Christmas', cursive;
+  background-color: #fff8e7;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+}
+.page.active { display: flex; }
+
+.content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.box-container {
+  background-color: #FFA500;
+  border-radius: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.text-side {
+  color: white;
+  padding: 1.5rem;
+  font-size: 1.1rem;
+  text-align: justify;
+}
+
+.image-container {
+  width: 50vw;
+  max-width: 500px;
+}
+
+video, img {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+/* Hojas */
+.leaf {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url('neu.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+  to { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+}
+
+/* Halloween */
+.halloween-item {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  opacity: 0.25;
+  animation: floatZigzag 6s ease-in-out infinite;
+}
+.bat { background-image: url('bola.png'); }
+.ghost { background-image: url('bola1.png'); }
+.pumpkin { background-image: url('bola2.png'); }
+
+@keyframes floatZigzag {
+  0% { transform: translate(0,0); }
+  50% { transform: translate(30px,20px); }
+  100% { transform: translate(0,0); }
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 1rem;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PORTADA -->
+<div id="page0" class="page active">
+  <img src="portada.png" class="w-2/3 max-w-md mb-4"/>
+  <button onclick="nextPage()" class="px-5 py-2 bg-orange-500 text-white rounded">Començar</button>
+</div>
+
+<!-- PÁGINA 1 -->
+<div id="page1" class="page">
+<div class="content-wrapper">
+  <div class="box-container">
+    <div class="text-side">
+      Era una vesprada freda de desembre...
+    </div>
+    <div id="effects1"></div>
+  </div>
+  <div class="image-container">
+    <video src="1.mp4" loop playsinline controls></video>
+  </div>
+</div>
+<div class="nav-buttons">
+  <button onclick="prevPage()">← Torna</button>
+  <button onclick="nextPage()">Següent →</button>
+</div>
+</div>
+
+<!-- PÁGINA 2 -->
+<div id="page2" class="page">
+<div class="content-wrapper">
+  <div class="box-container">
+    <div class="text-side">
+      Una llum suau i brillant va omplir l’habitació...
+    </div>
+    <div id="effects2"></div>
+  </div>
+  <div class="image-container">
+    <video src="2.mp4" loop playsinline controls></video>
+  </div>
+</div>
+<div class="nav-buttons">
+  <button onclick="prevPage()">← Torna</button>
+  <button onclick="nextPage()">Següent →</button>
+</div>
+</div>
+
+<!-- FINAL -->
+<div id="page6" class="page">
+  <h2 class="text-4xl text-green-600 mb-4">Continuarà...</h2>
+  <button onclick="goToPage(0)" class="px-5 py-2 bg-blue-500 text-white rounded">
+    Torna'l a llegir
+  </button>
+</div>
+
+<script>
+let currentPage = 0;
+const totalPages = 7;
+
+/* --- VIDEO CONTROL --- */
+function stopAllVideos() {
+  document.querySelectorAll('video').forEach(v => {
+    v.pause();
+    v.currentTime = 0;
+  });
+}
+
+function playVideoInPage(idx) {
+  const page = document.getElementById(`page${idx}`);
+  if (!page) return;
+  const video = page.querySelector('video');
+  if (video) {
+    video.muted = false;
+    video.play().catch(()=>{});
+  }
+}
+
+/* --- NAVEGACIÓN --- */
+function showPage(idx) {
+  stopAllVideos();
+
+  for (let i = 0; i < totalPages; i++) {
+    const p = document.getElementById(`page${i}`);
+    if (p) p.classList.remove('active');
+  }
+
+  document.getElementById(`page${idx}`).classList.add('active');
+  currentPage = idx;
+
+  if (idx === 1) generateLeaves(); else clearLeaves();
+  if (idx === 2) generateHalloween(); else clearHalloween();
+
+  playVideoInPage(idx);
+}
+
+function nextPage() {
+  if (currentPage < totalPages - 1) showPage(currentPage + 1);
+}
+function prevPage() {
+  if (currentPage > 0) showPage(currentPage - 1);
+}
+function goToPage(idx) { showPage(idx); }
+
+/* --- HOJAS --- */
+function generateLeaves() {
+  const c = document.getElementById('effects1');
+  c.innerHTML = '';
+  for (let i = 0; i < 25; i++) {
+    const l = document.createElement('div');
+    l.className = 'leaf';
+    l.style.left = Math.random()*100 + '%';
+    l.style.animationDuration = (5+Math.random()*5)+'s';
+    c.appendChild(l);
+  }
+}
+function clearLeaves() {
+  const c = document.getElementById('effects1');
+  if (c) c.innerHTML = '';
+}
+
+/* --- HALLOWEEN --- */
+function generateHalloween() {
+  const c = document.getElementById('effects2');
+  c.innerHTML = '';
+  ['bat','ghost','pumpkin'].forEach(type=>{
+    for(let i=0;i<5;i++){
+      const e=document.createElement('div');
+      e.className='halloween-item '+type;
+      e.style.left=Math.random()*80+'%';
+      e.style.top=Math.random()*80+'%';
+      c.appendChild(e);
+    }
+  });
+}
+function clearHalloween() {
+  const c = document.getElementById('effects2');
+  if (c) c.innerHTML = '';
+}
+
+showPage(0);
+</script>
+
+</body>
+</html>
