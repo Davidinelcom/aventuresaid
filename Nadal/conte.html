@@ -95,8 +95,23 @@
       justify-content: center;
       align-items: center;
     }
+	.video-container {
+      width: 50vw;
+      max-width: 500px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 	
     .image-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 1rem;
+      user-select: none;
+    }
+	.video-container video {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
@@ -172,6 +187,10 @@
         width: 90vw;
         max-width: 300px;
       }
+	  .video-container {
+        width: 90vw;
+        max-width: 300px;
+      }
       .text-side {
         font-size: 0.9rem;
         padding: 1rem;
@@ -183,7 +202,7 @@
 
   <!-- Portada -->
   <div id="page0" class="page active">
-    <!--<h1 class="text-3xl md:text-5xl text-orange-600 font-bold mb-4 text-center">UNA NIT MÀGICA DE HALLOWEEN</h1>-->
+    <!--<h1 class="text-3xl md:text-5xl text-orange-600 font-bold mb-4 text-center">UNA NIT MÀGICA DE reis</h1>-->
     <img src="portada.png" alt="Portada" class="w-2/3 max-w-md rounded-lg shadow-md mb-4" />
     <button onclick="nextPage()" class="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Començar</button>
   </div>
@@ -204,8 +223,11 @@
         </div>
         <div class="effects-container" id="effects1"></div>
       </div>
-      <div class="image-container">
-        <img src="1.png" alt="Imagen 1" draggable="false" />
+      <div class="video-container">
+      <!--   <img src="1.gif" alt="Imagen 2" draggable="false" /> -->
+		<video src="1.mp4" autoplay loop draggable="false"></video>
+
+
       </div>
     </div>
     <div class="nav-buttons">
@@ -229,8 +251,8 @@
         </div>
         <div class="effects-container" id="effects2"></div>
       </div>
-      <div class="image-container">
-        <img src="2.png" alt="Imagen 2" draggable="false" />
+      <div class="video-container">
+        <video src="2.mp4" autoplay loop draggable="false"></video>
       </div>
     </div>
     <div class="nav-buttons">
@@ -254,8 +276,8 @@
         </div>
         <!-- No hay efectos -->
       </div>
-      <div class="image-container">
-        <img src="3.png" alt="Imagen 3" draggable="false" />
+      <div class="video-container">
+        <video src="3.mp4" autoplay loop draggable="false"></video>
       </div>
     </div>
     <div class="nav-buttons">
@@ -280,7 +302,7 @@ Amb veu baixeta, li va tornar la màgia a Alba, deixant-la brillar de nou entre 
 El Grinch va somriure, tots es van posar contents i, amb aquella abraçada, la màgia va tornar als reis<p><br>
         </div>
       </div>
-      <div class="image-container">
+      <div class="video-container">
         <img src="4.png" alt="Imagen 4" draggable="false"  />
       </div>
     </div>
@@ -309,7 +331,7 @@ i va tornar Alba i Dàlia a casa seua.</p><br>
 
         </div>
       </div>
-      <div class="image-container">
+      <div class="video-container">
         <img src="4.png" alt="Imagen 4" draggable="false"  />
       </div>
     </div>
@@ -329,27 +351,50 @@ i va tornar Alba i Dàlia a casa seua.</p><br>
   <script>
     let currentPage = 0;
     const totalPages = 7;
+	
+	/* --- VIDEO CONTROL --- */
+function stopAllVideos() {
+  document.querySelectorAll('video').forEach(v => {
+    v.pause();
+    v.currentTime = 0;
+  });
+}
 
-    function showPage(idx) {
-      for (let i = 0; i < totalPages; i++) {
-        document.getElementById(`page${i}`).classList.remove('active');
-      }
-      document.getElementById(`page${idx}`).classList.add('active');
-      currentPage = idx;
+function playVideoInPage(idx) {
+  const page = document.getElementById(`page${idx}`);
+  if (!page) return;
+  const video = page.querySelector('video');
+  if (video) {
+    video.muted = false;
+    video.play().catch(()=>{});
+  }
+}
 
-      if (idx === 1) generateLeaves(); else clearLeaves();
-      if (idx === 2) generateHalloween(); else clearHalloween();
-    }
+/* --- NAVEGACIÓN --- */
+function showPage(idx) {
+  stopAllVideos();
 
-    function nextPage() {
-      if (currentPage < totalPages - 1) showPage(currentPage + 1);
-    }
-    function prevPage() {
-      if (currentPage > 0) showPage(currentPage - 1);
-    }
-    function goToPage(idx) {
-      showPage(idx);
-    }
+  for (let i = 0; i < totalPages; i++) {
+    const p = document.getElementById(`page${i}`);
+    if (p) p.classList.remove('active');
+  }
+
+  document.getElementById(`page${idx}`).classList.add('active');
+  currentPage = idx;
+
+  if (idx === 1) generateLeaves(); else clearLeaves();
+  if (idx === 2) generateHalloween(); else clearHalloween();
+
+  playVideoInPage(idx);
+}
+
+function nextPage() {
+  if (currentPage < totalPages - 1) showPage(currentPage + 1);
+}
+function prevPage() {
+  if (currentPage > 0) showPage(currentPage - 1);
+}
+function goToPage(idx) { showPage(idx); }
 
     // Hojas
     let leaves = [];
