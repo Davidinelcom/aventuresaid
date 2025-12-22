@@ -66,8 +66,8 @@
       height: 100%;
       padding: 1.5rem;
       box-sizing: border-box;
-      color: white;
-      font-size: 1.2rem;
+      color: black;
+      font-size: 1.5rem;
       line-height: 1.5;
       overflow-y: auto;
       user-select: none;
@@ -202,10 +202,29 @@
 
   <!-- Portada -->
   <div id="page0" class="page active">
-    <!--<h1 class="text-3xl md:text-5xl text-orange-600 font-bold mb-4 text-center">UNA NIT MÀGICA DE reis</h1>-->
-    <img src="portada.png" alt="Portada" class="w-2/3 max-w-md rounded-lg shadow-md mb-4" />
-    <button onclick="nextPage()" class="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Començar</button>
+ <!-- <h1 class="text-3xl md:text-5xl text-orange-600 font-bold mb-4 text-center">
+    UNA NIT MÀGICA DE REIS
+  </h1>-->
+
+  <img src="portada.gif" alt="Portada"
+       class="w-2/3 max-w-md rounded-lg shadow-md mb-6" />
+
+  <!-- CONTENEDOR FLEX -->
+  <div class="flex gap-4">
+    <button onclick="nextPage()"
+            class="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
+      Començar
+    </button>
+
+    <a href="https://davidinelcom.github.io/aventuresaid/" target="_self">
+      <button
+        class="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+        Anar a l'inici
+      </button>
+    </a>
   </div>
+</div>
+
 
   <!-- Página 1 -->
   <div id="page1" class="page">
@@ -223,9 +242,9 @@
         </div>
         <div class="effects-container" id="effects1"></div>
       </div>
-      <div class="video-container">
-      <!--   <img src="1.gif" alt="Imagen 2" draggable="false" /> -->
-		<video src="1.mp4" autoplay loop draggable="false"></video>
+      <div class="image-container">
+       <img src="1.gif" draggable="false" /> 
+		<!--  <video src="1.mp4" autoplay loop draggable="false"></video>-->
 
 
       </div>
@@ -251,8 +270,8 @@
         </div>
         <div class="effects-container" id="effects2"></div>
       </div>
-      <div class="video-container">
-        <video src="2.mp4" autoplay loop draggable="false"></video>
+      <div class="image-container">
+       <img src="2.gif" draggable="false" /> 
       </div>
     </div>
     <div class="nav-buttons">
@@ -276,8 +295,8 @@
         </div>
         <!-- No hay efectos -->
       </div>
-      <div class="video-container">
-        <video src="3.mp4" autoplay loop draggable="false"></video>
+      <div class="image-container">
+       <img src="3.gif" draggable="false" /> 
       </div>
     </div>
     <div class="nav-buttons">
@@ -302,15 +321,16 @@ Amb veu baixeta, li va tornar la màgia a Alba, deixant-la brillar de nou entre 
 El Grinch va somriure, tots es van posar contents i, amb aquella abraçada, la màgia va tornar als reis<p><br>
         </div>
       </div>
-      <div class="video-container">
-        <img src="4.png" alt="Imagen 4" draggable="false"  />
-      </div>
+      <div class="image-container">
+       <img src="4.gif" draggable="false" /> 
     </div>
+	</div>
     <div class="nav-buttons">
       <button onclick="prevPage()" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">← Torna</button>
      <button onclick="nextPage()" class="px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600">Següent→</button>
     </div>
   </div>
+
  <!-- Página 5 -->
   <div id="page5" class="page">
     <div class="content-wrapper">
@@ -331,8 +351,8 @@ i va tornar Alba i Dàlia a casa seua.</p><br>
 
         </div>
       </div>
-      <div class="video-container">
-        <img src="4.png" alt="Imagen 4" draggable="false"  />
+      <div class="image-container">
+       <img src="5.gif" draggable="false" /> 
       </div>
     </div>
     <div class="nav-buttons">
@@ -344,13 +364,14 @@ i va tornar Alba i Dàlia a casa seua.</p><br>
   <!-- Página final -->
   <div id="page6" class="page">
     <h2 class="text-3xl md:text-5xl text-green-600 font-bold mb-4 text-center">Continuarà...</h2>
-    <img src="fin.png" alt="Fin" class="w-2/3 max-w-md rounded-lg shadow-md mb-4" />
+    <img src="fi.gif" alt="Fi" class="w-2/3 max-w-md rounded-lg shadow-md mb-4" />
+    <div class="flex gap-4">
     <button onclick="goToPage(0)" class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Torna'l a llegir</button>
-	<a href="https://davidinelcom.github.io/aventuresaid/" target="_self">
-  <button class="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
-    Anar a l'inici
-  </button>
-</a>
+
+    <a href="https://davidinelcom.github.io/aventuresaid/" target="_self">
+	<button class="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Anar a l'inici</button>
+    </a>
+  </div>
 	
   </div>
 
