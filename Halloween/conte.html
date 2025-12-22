@@ -182,10 +182,25 @@
 
   <!-- Portada -->
   <div id="page0" class="page active">
-    <!--<h1 class="text-3xl md:text-5xl text-orange-600 font-bold mb-4 text-center">UNA NIT MÀGICA DE HALLOWEEN</h1>-->
-    <img src="portada.png" alt="Portada" class="w-2/3 max-w-md rounded-lg shadow-md mb-4" />
-    <button onclick="nextPage()" class="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Començar</button>
+   <img src="portada.png" alt="Portada"
+       class="w-2/3 max-w-md rounded-lg shadow-md mb-6" />
+
+  <!-- CONTENEDOR FLEX -->
+  <div class="flex gap-4">
+    <button onclick="nextPage()"
+            class="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
+      Començar
+    </button>
+
+    <a href="https://davidinelcom.github.io/aventuresaid/" target="_self">
+      <button
+        class="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+        Anar a l'inici
+      </button>
+    </a>
   </div>
+</div>
+
 
   <!-- Página 1 -->
   <div id="page1" class="page">
@@ -325,13 +340,17 @@
   <div id="page5" class="page">
     <h2 class="text-3xl md:text-5xl text-green-600 font-bold mb-4 text-center">Continuarà...</h2>
     <img src="fin.png" alt="Fin" class="w-2/3 max-w-md rounded-lg shadow-md mb-4" />
+    
+ <div class="flex gap-4">
     <button onclick="goToPage(0)" class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Torna'l a llegir</button>
-	<a href="https://davidinelcom.github.io/aventuresaid/" target="_self">
-  <button class="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
-    Anar a l'inici
-  </button>
-</a>
+
+    <a href="https://davidinelcom.github.io/aventuresaid/" target="_self">
+	<button class="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Anar a l'inici</button>
+    </a>
   </div>
+  </div>
+  
+ 
 
   <script>
     let currentPage = 0;
